@@ -4,32 +4,41 @@ jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Run lint
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
         with: 
-          node-version: 18
+        node-version: 18
+      - name: Install dependencies
         run: npm install
+      - name: Run linting
         run: eslint --ext .jsx --fix src
   test:
     needs: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
         with: 
           node-version: 18
+      - name: Install dependencies
         run: npm install
-        run: vitest run
+      - name: Run tests
+        run: vite run
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy / Build
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: 
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
           node-version: 18
+      - name: Install dependencies
         run: npm install
+      - name: Deploy
         run: vite build
