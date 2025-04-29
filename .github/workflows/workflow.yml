@@ -13,7 +13,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run linting
-        run: eslint --ext .jsx --fix src
+        run: vite run lint
   test:
     needs: Lint
     runs-on: ubuntu-latest
